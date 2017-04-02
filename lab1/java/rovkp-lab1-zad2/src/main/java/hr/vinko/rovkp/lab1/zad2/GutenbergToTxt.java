@@ -59,6 +59,8 @@ public class GutenbergToTxt {
 		System.out.println("FILES READ: " + fileCounter);
 
 		hdfs.close();
+
+		Configuration conf = new Configuration();
 		
 	}
 }
