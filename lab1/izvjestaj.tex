@@ -38,6 +38,8 @@
 \usepackage[croatian]{babel}
 \usepackage{listings}
 \usepackage{enumitem}
+\usepackage{color}
+
 
 %%% Custom sectioning
 \usepackage{sectsty}
@@ -69,7 +71,7 @@
 		\usefont{OT1}{bch}{b}{n}
 		\normalfont \normalsize \textsc{Fakultet Elektrotehnike i Računarstva} \\ [25pt]
 		\horrule{0.5pt} \\[0.4cm]
-		\huge 1. Laboratorijska vježba - ROVKP \\
+		\huge 2. Laboratorijska vježba - ROVKP \\
 		\horrule{2pt} \\[0.5cm]
 }
 \author{
@@ -82,19 +84,37 @@
 
 %%% Begin document
 \begin{document}
+
 \maketitle
 
-\section{Zadatak}
 
-Ovo uradi nekad
 
-\section{Zadatak}
+\section{Zadatak: Upoznavanje sa Hadoop grozdom}
 
-Duration: 5776ms
+\begin{enumerate}
+\item Hadoop grozd sastoji se od 8 računala.
+\item IP adresa imenskog čvora je 10.19.4.52
+\item Podatkovnih čvorova ima 7 i svi su u funkciji.
+\item Ukupni spremišni kapacitet grozda je 3.0 TiB.
+\item Postavljena veličina HDFS bloka je 128 MiB.
+\end{enumerate}
+
+\newpage
+\section{Zadatak: Rad sa datotekama u Hadoop grozdu}
+
+\lstinputlisting[caption=Programski kod 2. zadatka, language=Java, breaklines=true, tabsize=2]{java/rovkp-lab1-zad2/src/main/java/hr/vinko/rovkp/lab1/zad2/GutenbergToTxt.java}
+
+\begin{lstlisting}[caption=Ispis programa]
+DURATION: 5776ms
+LINE NUMBERS: 8481553
 FILES READ: 594
-LINES READ: 8481553
+\end{lstlisting}
 
-Velicina ciljne datoteke : 418.242.611 byte
-U koliko blokova je pohranjena: 4 * 3
+Veličina ciljne datoteke iznosi 418.242.611 byte-a, pohranjena je u $4 \cdot 3=12$ blokova.
+\newpage
+
+\section{Zadatak: Serijalizacija objekata u Hadoop grozdu}
+\lstinputlisting[caption=Programski kod 2. zadatka, language=Java, breaklines=true, tabsize=2]{java/rovkp-lab1-zad3/src/main/java/hr/vinko/rovkp/lab1/zad3/SensorGenerator.java}
+
 
 \end{document}
