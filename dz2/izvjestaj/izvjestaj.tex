@@ -69,7 +69,7 @@
 		\usefont{OT1}{bch}{b}{n}
 		\normalfont \normalsize \textsc{Fakultet Elektrotehnike i Računarstva} \\ [25pt]
 		\horrule{0.5pt} \\[0.4cm]
-		\huge 1. Domaća zadaća - ROVKP \\
+		\huge 2. Domaća zadaća - ROVKP \\
 		\horrule{2pt} \\[0.5cm]
 }
 \author{
@@ -84,97 +84,59 @@
 \begin{document}
 \maketitle
 
-\section{Zadatak}
+\section{Zadatak: Izrada MapReduce programa}
+Koliko različitih vozila se nalazi u ulaznoj datoteci?\\
+U ulaznoj datoteci se nalazi $9834$ različitih vozila.\\
 
-\begin{enumerate}
-\setcounter{enumi}{1}
+Koliko je trajala najdulja ukupna vožnja jednog taksija? Koja je minimalna, a koja najdulja vožnja tog taksija?\\
+Najdulja ukupna vožnja jednog taksija je trajala 225600s, minimalna 0s, a maksimalna 3360s.\\
 
+Koje ste promjene morali napraviti na izvornom kodu prilikom uvođenja optimizacijske funkcije Combine?\\
+Potrebno je samo postaviti sa job.setCombinerClass razred koji će se koristiti za Combiner, i to isti razred koji se koristi za Reducer.\\
 
-\item{
-\begin{lstlisting}[language=bash]
-  $ start-dfs.sh
-\end{lstlisting}
-}
+Koliko vremena su se izvodile inačice programa? Je li to u skladu s vašim očekivanjem? Objasnite zašto.\\
 
-\item{
-\begin{lstlisting}[language=bash]
-  $ hdfs dfs -ls /user/rovkp
-\end{lstlisting}
-}
-
-\item{
-\begin{lstlisting}[language=bash]
-  $ wget http://svn.tel.fer.hr/gutenberg.zip
-\end{lstlisting}
-}
-
-\item{
-\begin{lstlisting}[language=bash]
-  $ hdfs dfs -copyFromLocal gutenberg.zip /user/rovkp
-\end{lstlisting}
-}
-
-\item{
-\begin{lstlisting}[language=bash]
-  $ hdfs fsck /user/rovkp/gutenberg.zip
-\end{lstlisting}
-
-\begin{enumerate}[label=\alph*.]
-
-\item {
-datoteka se sastoji od 2 bloka
-}
-
-\item {
-replikacijski faktor je 1
-}
-
-\item {
-hdfs je napravljen da jako dobro radi sa velikim datotekama, što datoteka od 151MB nije
-}
-
-\end{enumerate}
-}
-
-\item{
-\begin{lstlisting}[language=bash]
-  $ mv gutenberg.zip gutenberg_backup.zip
-\end{lstlisting}
-}
-
-\item{
-\begin{lstlisting}[language=bash]
-  $ hdfs dfs -copyToLocal /user/rovkp/gutenberg.zip .
-\end{lstlisting}
-}
-
-\item{
-\begin{lstlisting}[language=bash]
-  $ echo `md5sum gutenberg.zip` | \ 
-   awk '{print $1 " gutenberg_backup.zip";}' | \ 
-   md5sum -c
-\end{lstlisting}
-}
-
-
-\end{enumerate}
-
-\section{ZADATAK}
-
-\lstinputlisting[language=Java, breaklines=true, tabsize=2]{java/src/main/java/hr/vinko/rovkp/dz1/zad2/GutenbergToTxtLocal.java}
-
-\paragraph{}
-Konačna veličina datoteke gutenberg\_books.txt je 418.242.611 byte-ova.\\
-
-Ukupno je pročitano $8481553$ redaka.\\
-
-Za datoteku su potrebna 4 bloka, a uz faktor replikacije 3 na HDFS-u bi se stvorilo 12 blokova. \\
-
-Program se izvodio 16879ms, a očekivano vrijeme na HDFS-u je bar četiri puta brže.
+Inačice programa su se izvodile približno jednako (26915ms bez, 25750ms sa Combinerom) što je bilo za očekivati jer se radi u pseudo-raspodijeljenom načinu rada na jednom računalu u virtualnom stroju, tako da je neko poboljšanje bilo teško za očekivati.\\
 
 \pagebreak
-\section{ZADATAK}
 
-\lstinputlisting[language=Java, breaklines=true, tabsize=2]{java/src/main/java/hr/vinko/rovkp/dz1/zad3/HadoopJavaTest.java}
+\section{Zadatak: Korištenje obrasca dijeljenja podataka (partitioning pattern)}
+Koliko je vožnji realizirano u pojedinom području, tj. u užem centru i u širem gradskom području, i to tako da je broj putnika bio 1, 2-3 putnika ili 4 i više putnika?\\
+U užem centru je realizirano $500061$, a u širem gradskom području $763328$ vožnji.\\
+
+Koje ste promjene morali napraviti na izvornom kodu prilikom uvođenja funkcije Partition?\\
+Potrebno je samo poslu postaviti koji će se razred koristiti za Partitioner sa job.setPartitionerClass.\\
+
+Koliko je vožnji navedeno u svakoj podskupini? 
+\begin{itemize}
+
+\item Uži centar, 1 putnik - 244814
+\item Uži centar, 2-3 putnika - 70458
+\item Uži centar, 4+ putnika - 86294
+\item Šire područje, 1 putnik - 525525
+\item Šire područje, 2-3 putnika - 151509
+\item Šire područje, 4+ putnika - 184789
+
+\end{itemize}
+
+\pagebreak
+
+\section{Zadatak: Izvršavanje ulančanih MapReduce programa}
+Koliko ste MapReduce poslova izvršili u vašem kôdu? \\
+Jedan posao za razdvajanje podataka na 6 particija, i još po jedan posao za svaku particiju što je ukupno 7 MapReduce poslova.\\
+
+Koliko je različitih taksija realiziralo vožnje u pojedinom području, tj. u užem centru i u širem gradskom području,
+i to tako da je broj putnika bio 1, 2-3 putnika ili 4 i više putnika?
+
+\begin{itemize}
+
+\item Uži centar, 1 putnik - 6601
+\item Uži centar, 2-3 putnika - 4138
+\item Uži centar, 4+ putnika - 3425
+\item Šire područje, 1 putnik - 8714
+\item Šire područje, 2-3 putnika - 5487
+\item Šire područje, 4+ putnika - 3983
+
+\end{itemize}
 
 \end{document}
