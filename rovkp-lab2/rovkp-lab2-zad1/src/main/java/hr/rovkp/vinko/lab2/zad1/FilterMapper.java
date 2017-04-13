@@ -17,6 +17,9 @@ import org.apache.hadoop.mapreduce.Mapper;
  */
 public class FilterMapper extends Mapper<LongWritable, Text, Text, NullWritable> {
 
+    private final static int MIN_CELL = 1;
+    private final static int MAX_CELL = 150;
+
     private final static double BEGIN_LAT = 41.474937;
     private final static double BEGIN_LON = -74.913585;
 
@@ -27,8 +30,8 @@ public class FilterMapper extends Mapper<LongWritable, Text, Text, NullWritable>
 
     private final static Coordinates END = new Coordinates(BEGIN_LAT, BEGIN_LON);
 
-    private final static double GRID_LENGTH = 0.008983112;
-    private final static double GRID_WIDTH = 0.011972;
+    private final static double GRID_WIDTH = 0.008983112;
+    private final static double GRID_LENGTH = 0.011972;
 
     @Override
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
@@ -39,14 +42,21 @@ public class FilterMapper extends Mapper<LongWritable, Text, Text, NullWritable>
         Coordinates pickup = parser.getPickup();
         Coordinates dropoff = parser.getDropoff();
 
+        int[] cellPickup = getCellId(pickup);
+        int[] cellDropoff = getCellId(dropoff);
+
         if (totalAmount > 0
-                && getCellId(pickup)[0] <= 150
-                && getCellId(pickup)[1] <= 150
-                && getCellId(dropoff)[0] <= 150
-                && getCellId(dropoff)[1] <= 150) {
+                && inRange(cellPickup[0], MIN_CELL, MAX_CELL)
+                && inRange(cellPickup[1], MIN_CELL, MAX_CELL)
+                && inRange(cellDropoff[0], MIN_CELL, MAX_CELL)
+                && inRange(cellDropoff[1], MIN_CELL, MAX_CELL)) {
             context.write(value, NullWritable.get());
         }
 
+    }
+
+    private boolean inRange(int value, int min, int max) {
+        return value >= min && value <= max;
     }
 
     private int[] getCellId(Coordinates coordinates) {
