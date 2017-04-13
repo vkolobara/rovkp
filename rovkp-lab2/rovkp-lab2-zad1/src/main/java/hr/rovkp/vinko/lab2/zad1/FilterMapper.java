@@ -15,7 +15,7 @@ import org.apache.hadoop.mapreduce.Mapper;
  *
  * @author vkolobara
  */
-public class FilterMapper extends Mapper<LongWritable, Text, NullWritable, Text> {
+public class FilterMapper extends Mapper<LongWritable, Text, Text, NullWritable> {
 
     private final static double BEGIN_LAT = 41.474937;
     private final static double BEGIN_LON = -74.913585;
@@ -27,8 +27,8 @@ public class FilterMapper extends Mapper<LongWritable, Text, NullWritable, Text>
 
     private final static Coordinates END = new Coordinates(BEGIN_LAT, BEGIN_LON);
 
-    private final static int GRID_LENGTH = 150;
-    private final static int GRID_WIDTH = 150;
+    private final static double GRID_LENGTH = 0.008983112;
+    private final static double GRID_WIDTH = 0.011972;
 
     @Override
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
@@ -40,17 +40,19 @@ public class FilterMapper extends Mapper<LongWritable, Text, NullWritable, Text>
         Coordinates dropoff = parser.getDropoff();
 
         if (totalAmount > 0
-                && pickup.isInBoundingBox(BEGIN, END)
-                && dropoff.isInBoundingBox(BEGIN, END)) {
-            context.write(NullWritable.get(), value);
+                && getCellId(pickup)[0] <= 150
+                && getCellId(pickup)[1] <= 150
+                && getCellId(dropoff)[0] <= 150
+                && getCellId(dropoff)[1] <= 150) {
+            context.write(value, NullWritable.get());
         }
 
     }
 
     private int[] getCellId(Coordinates coordinates) {
         return new int[]{
-            ((int) (coordinates.getLongitude() - BEGIN_LON) / GRID_LENGTH) + 1,
-            ((int) (BEGIN_LAT - coordinates.getLatitude()) / GRID_WIDTH) + 1
+            (int) ((coordinates.getLongitude() - BEGIN_LON) / GRID_LENGTH) + 1,
+            (int) ((BEGIN_LAT - coordinates.getLatitude()) / GRID_WIDTH) + 1
         };
     }
 
