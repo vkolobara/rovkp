@@ -96,7 +96,7 @@ Potrebno je samo postaviti sa job.setCombinerClass razred koji će se koristiti 
 
 Koliko vremena su se izvodile inačice programa? Je li to u skladu s vašim očekivanjem? Objasnite zašto.\\
 
-Inačice programa su se izvodile približno jednako (26915ms bez, 25750ms sa Combinerom) što je bilo za očekivati jer se radi u pseudo-raspodijeljenom načinu rada na jednom računalu u virtualnom stroju, tako da je neko poboljšanje bilo teško za očekivati.\\
+Inačice programa su se izvodile približno jednako (26915ms bez, 25750ms sa Combinerom), ali ipak sevarijanta s Combiner-om pokazala nešto bržom. Nije bilo za očekivati veću razliku zbog toga što se sve izvodilo u virtualnom stroju u pseudo-raspodijeljenom načinu s malom datotekom itd. pa hadoop nije mogao pokazati svoju moć.
 
 \pagebreak
 
