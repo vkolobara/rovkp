@@ -6,6 +6,9 @@
 package hr.rovkp.vinko.lab2.zad1;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
@@ -23,20 +26,17 @@ public class FilterMapper extends Mapper<LongWritable, Text, Text, NullWritable>
     private final static double BEGIN_LAT = 41.474937;
     private final static double BEGIN_LON = -74.913585;
 
-    private final static Coordinates BEGIN = new Coordinates(BEGIN_LAT, BEGIN_LON);
-
-    private final static double END_LAT = 40.1274702;
-    private final static double END_LON = -73.117785;
-
-    private final static Coordinates END = new Coordinates(BEGIN_LAT, BEGIN_LON);
-
     private final static double GRID_WIDTH = 0.008983112;
     private final static double GRID_LENGTH = 0.011972;
 
     @Override
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
         DEBSParser parser = new DEBSParser();
-        parser.parse(value.toString());
+        try {
+            parser.parse(value.toString());
+        } catch (ParseException ex) {
+            Logger.getLogger(FilterMapper.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         double totalAmount = parser.getTotalAmount();
         Coordinates pickup = parser.getPickup();

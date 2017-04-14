@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hr.rovkp.vinko.lab2.zad1;
+package hr.rovkp.vinko.lab2.zad2;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
