@@ -1,0 +1,16 @@
+Zadatak 1
+
+- Sadrzi samo map funkciju
+- Nastale su 3 izlazne datoteke
+- 1999999 - 1960776
+
+Zadatak 2
+
+- map, partitioner, reduce
+- NullWritable, Text
+
+Zadatak 3
+- 33295450759
+- 2 MapReduce posla, jedan za filtriranje, drugi za izracun
+- Za prvi posao sam izlaz Mappera promijenio i postavio da ispise samo bitne stupce, a drugi posao pomocu drugog (mini)parsera parsira ulaz (parsira samo bitne stupce iz prethodnog posla).
+- Glavna prednost, manja velicina medjurezultata sto znaci brzi prijenos, mana, izmisli nesto
