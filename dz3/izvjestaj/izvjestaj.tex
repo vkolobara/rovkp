@@ -1,0 +1,123 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% LaTeX Example: Project Report
+%
+% Source: http://www.howtotex.com
+%
+% Feel free to distribute this example, but please keep the referral
+% to howtotex.com
+% Date: March 2011 
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% How to use writeLaTeX: 
+%
+% You edit the source code here on the left, and the preview on the
+% right shows you the result within a few seconds.
+%
+% Bookmark this page and share the URL with your co-authors. They can
+% edit at the same time!
+%
+% You can upload figures, bibliographies, custom classes and
+% styles using the files menu.
+%
+% If you're new to LaTeX, the wikibook is a great place to start:
+% http://en.wikibooks.org/wiki/LaTeX
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Edit the title below to update the display in My Documents
+%\title{Project Report}
+%
+%%% Preamble
+\documentclass[paper=a4, fontsize=11pt]{scrartcl}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+\usepackage[pdftex]{graphicx}	
+\usepackage{url}
+\usepackage[skip=2pt]{caption} % example skip set to 2pt
+\usepackage[croatian]{babel}
+\usepackage{listings}
+\usepackage{enumitem}
+
+%%% Custom sectioning
+\usepackage{sectsty}
+\allsectionsfont{\centering \normalfont\scshape}
+
+
+%%% Custom headers/footers (fancyhdr package)
+\usepackage{fancyhdr}
+\pagestyle{fancyplain}
+\fancyhead{}											% No page header
+\fancyfoot[L]{}											% Empty 
+\fancyfoot[C]{}											% Empty
+\fancyfoot[R]{\thepage}									% Pagenumbering
+\renewcommand{\headrulewidth}{0pt}			% Remove header underlines
+\renewcommand{\footrulewidth}{0pt}				% Remove footer underlines
+\setlength{\headheight}{13.6pt}
+
+
+%%% Equation and float numbering
+\numberwithin{equation}{section}		% Equationnumbering: section.eq#
+\numberwithin{figure}{section}			% Figurenumbering: section.fig#
+\numberwithin{table}{section}				% Tablenumbering: section.tab#
+
+%%% Maketitle metadata
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} 	% Horizontal rule
+
+\title{
+		%\vspace{-1in} 	
+		\usefont{OT1}{bch}{b}{n}
+		\normalfont \normalsize \textsc{Fakultet Elektrotehnike i Računarstva} \\ [25pt]
+		\horrule{0.5pt} \\[0.4cm]
+		\huge 3. Domaća zadaća - ROVKP \\
+		\horrule{2pt} \\[0.5cm]
+}
+\author{
+		\normalfont 								\normalsize
+        Vinko Kolobara\\[-3pt]		\normalsize
+        \today
+}
+\date{}
+
+
+%%% Begin document
+\begin{document}
+\maketitle
+
+\section{Zadatak: Indeksiranje tekstualne kolekcije}
+Koliko se zapisa nalazi u izlaznoj datoteci?\\
+U izlaznoj datoteci se nalazi $11175 (100 \choose 2)$ zapisa.\\
+
+Koja šala je najsličnija šali s ID-jem 1?\\
+Najsličnija je ona šala sa ID-jem 87.\\
+
+Vidite li zašto su te dvije šale slične?\\
+U obje šale se spominje doktor.
+
+Što mislite, hoće li preporuka po sadržaju imati smisla u slučaju ovih šala?\\
+Trebala bi imati smisla. Ljudima bi se trebale sviđati šale slične po sadržaju\\
+
+
+\pagebreak
+
+\section{Zadatak: Izgradnja i evaluacija centraliziranog preporučitelja}
+Kojih 10 preporuka je za korisnika s ID-jem 220 je izračunao prvi, a koje drugi preporučitelj?\\
+Prvi preporučitelj: 141, 140, 44, 22, 36, 52, 86, 37, 129, 43\\
+Drugi preporučitelj: 62, 68, 105, 66, 53, 104, 35, 114, 148, 106\\
+
+Koje preporučitelj ima bolju kvalitetu?\\
+Nešto bolju kvalitetu ima prvi preporučitelj.\\
+
+Je li za ove ulazne podatke bolje koristiti mjeru log-likelihood ili Pearsonovu korelaciju u slučaju drugog preporučitelja?\\
+Bolje je koristiti log-likelihood.
+
+\pagebreak
+
+\section{Zadatak: Pokretanje raspodijeljenog preporučitelja}
+Koliko ste MapReduce poslova izvršili u vašem kôdu? \\
+
+
+Pogledajte izlazne datoteke i objasnite postoji li razlika u izračunatim preporukama u odnosu na
+preporučitelja iz 2. zadatka?\\
+
+
+\end{document}
