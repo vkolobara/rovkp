@@ -85,13 +85,13 @@
 
 \section{Zadatak: Indeksiranje tekstualne kolekcije}
 Koliko se zapisa nalazi u izlaznoj datoteci?\\
-U izlaznoj datoteci se nalazi $11175 (100 \choose 2)$ zapisa.\\
+U izlaznoj datoteci se nalazi $11175$ $100 \choose 2$ zapisa.\\
 
 Koja šala je najsličnija šali s ID-jem 1?\\
 Najsličnija je ona šala sa ID-jem 87.\\
 
 Vidite li zašto su te dvije šale slične?\\
-U obje šale se spominje doktor.
+U obje šale se spominje doktor.\\
 
 Što mislite, hoće li preporuka po sadržaju imati smisla u slučaju ovih šala?\\
 Trebala bi imati smisla. Ljudima bi se trebale sviđati šale slične po sadržaju\\
@@ -113,11 +113,22 @@ Bolje je koristiti log-likelihood.
 \pagebreak
 
 \section{Zadatak: Pokretanje raspodijeljenog preporučitelja}
-Koliko ste MapReduce poslova izvršili u vašem kôdu? \\
+\begin{lstlisting}[language=bash,caption={Pokretanje raspodijeljenog preporučitelja}]
+mahout recommenditembased  \
+--similarityClassname SIMILARITY_PEARSON_CORRELATION \
+--input data/jester_ratings.csv \
+--usersFile data/users.txt \
+--output data/result \
+--numRecommendations 10
+\end{lstlisting}
 
+
+
+Koliko ste MapReduce poslova izvršili u vašem kôdu? \\
+9 MapReduce poslova je izvršeno.\\
 
 Pogledajte izlazne datoteke i objasnite postoji li razlika u izračunatim preporukama u odnosu na
 preporučitelja iz 2. zadatka?\\
-
+Postoje razlike, prvenstveno zato što je u 2. zadatku korištena druga mjera sličnosti koja ne daje iste rezultate kao Pearsonova korelacija.
 
 \end{document}

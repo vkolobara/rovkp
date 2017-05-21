@@ -34,7 +34,7 @@ public class MainUserBased {
 		userBasedRecommender.recommend(USER_ID, NUM_RECOMMENDATIONS).forEach(System.out::println);
 
 		System.out.println("\nWRITE TO FILE FOR FIRST 100 USERS TOP 10 RECOMMENDATIONS");
-		recommendAndWriteToFile(model, userBasedRecommender, "out.txt");
+		recommendAndWriteToFile(model, userBasedRecommender, "../data/out.txt");
 
 		double userScore = userBasedRecommender.evaluate(model, TRAINING_PERCENTAGE, EVALUATION_PERCENTAGE);
 		System.out.println("USER BASED RECOMMENDER SCORE");

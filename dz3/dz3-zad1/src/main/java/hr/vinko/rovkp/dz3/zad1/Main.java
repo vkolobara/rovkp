@@ -15,7 +15,7 @@ public class Main {
 		
 		float[][] matrix = indexer.similarityMatrix();
 		
-		FileUtil.writeMatrixToFile(matrix, "../item_similarity.csv");
+		FileUtil.writeMatrixToFile(matrix, "../data/item_similarity.csv");
 		
 	}
 }

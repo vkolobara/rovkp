@@ -1,11 +1,17 @@
 package hr.vinko.rovkp.dz3.zad2;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
+import java.util.List;
 
 import org.apache.mahout.cf.taste.common.TasteException;
+import org.apache.mahout.cf.taste.impl.common.LongPrimitiveIterator;
 import org.apache.mahout.cf.taste.impl.model.file.FileDataModel;
 import org.apache.mahout.cf.taste.model.DataModel;
+import org.apache.mahout.cf.taste.recommender.RecommendedItem;
 
 public class MainItemBased {
 
@@ -26,9 +32,33 @@ public class MainItemBased {
 		System.out.println("ITEM BASED RECOMMENDER RECOMMENDATIONS");
 		itemBasedRecommender.recommend(USER_ID, NUM_RECOMMENDATIONS).forEach(System.out::println);
 
+		System.out.println("\nWRITE TO FILE FOR FIRST 100 USERS TOP 10 RECOMMENDATIONS");
+		recommendAndWriteToFile(model, itemBasedRecommender, "../data/out.txt");
+		
 		double itemScore = itemBasedRecommender.evaluate(model, TRAINING_PERCENTAGE, EVALUATION_PERCENTAGE);
 		System.out.println("ITEM BASED RECOMMENDER SCORE");
 		System.out.println(itemScore);
 	}
 
+	private static void recommendAndWriteToFile(DataModel model, RovkpRecommender recommender, String outPath)
+			throws IOException, TasteException {
+		int counter = 0;
+		try (Writer writer = new BufferedWriter(new FileWriter(outPath))) {
+			LongPrimitiveIterator it = model.getUserIDs();
+			while(counter++ < 100) {
+				System.out.println(it.peek());
+				writer.write((int) it.peek() + "\t"); 
+				List<RecommendedItem> recommendations = recommender.recommend(it.nextLong(), 10);
+				recommendations.forEach(rec -> {
+					try {
+						writer.write(String.valueOf(rec.getItemID()) + " ");
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				});
+				writer.write("\n");
+			}
+		}
+
+	}
 }
