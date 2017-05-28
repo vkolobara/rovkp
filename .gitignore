@@ -1,6 +1,7 @@
 target
 bin
 gutenberg
+jester_dataset_2
 *.aux
 *.glo
 *.idx
