@@ -26,3 +26,4 @@ jester_dataset_2
 *.out
 *.synctex.gz
 data
+*.zip

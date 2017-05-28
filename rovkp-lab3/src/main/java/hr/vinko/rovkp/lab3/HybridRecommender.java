@@ -11,6 +11,8 @@ import org.apache.mahout.cf.taste.model.DataModel;
 import org.apache.mahout.cf.taste.recommender.Recommender;
 import org.apache.mahout.cf.taste.similarity.ItemSimilarity;
 
+import hr.vinko.rovkp.dz3.zad2.RovkpRecommender;
+
 public class HybridRecommender extends RovkpRecommender {
 
 	private final static String DEFAULT_FILE_SIMILARITY_PATH = "./jester_dataset_2/item_similarity.csv";

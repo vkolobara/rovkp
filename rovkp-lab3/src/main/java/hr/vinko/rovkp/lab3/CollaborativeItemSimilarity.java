@@ -66,8 +66,6 @@ public class CollaborativeItemSimilarity implements ItemSimilarity {
             }
         }
         
-        //TODO convert to range [0, 1]
-
 	//get cosine similarity from similarity sums
         for (int seqId1 = 0; seqId1 < matrix.length; seqId1++) {
             for (int seqId2 = 0; seqId2 < matrix.length; seqId2++) {

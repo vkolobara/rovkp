@@ -19,7 +19,7 @@ public class RovkpItemBasedRecommender extends RovkpRecommender{
 		this(model, DEFAULT_FILE_SIMILARITY_PATH);
 	}
 	
-	private RovkpItemBasedRecommender(DataModel model, String filePath) throws IOException, TasteException {
+	public RovkpItemBasedRecommender(DataModel model, String filePath) throws IOException, TasteException {
 		this(model, new FileItemSimilarity(new File(filePath)));
 	}
 	

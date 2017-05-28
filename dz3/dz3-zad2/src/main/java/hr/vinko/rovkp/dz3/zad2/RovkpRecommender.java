@@ -12,7 +12,7 @@ import org.apache.mahout.cf.taste.recommender.Recommender;
 
 public abstract class RovkpRecommender {
 
-	Recommender recommender;
+	public Recommender recommender;
 	
 	public List<RecommendedItem> recommend(Long userId, int numRecommendations) throws TasteException {
 		return recommender.recommend(userId, numRecommendations);
