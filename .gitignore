@@ -1,6 +1,7 @@
 target
 bin
 gutenberg
+jester_dataset_2
 *.aux
 *.glo
 *.idx
@@ -25,3 +26,4 @@ gutenberg
 *.out
 *.synctex.gz
 data
+*.zip

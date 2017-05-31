@@ -1,4 +1,4 @@
-package hr.vinko.rovkp.dz3.zad2;
+package hr.vinko.rovkp.lab3;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,20 +11,22 @@ import org.apache.mahout.cf.taste.model.DataModel;
 import org.apache.mahout.cf.taste.recommender.Recommender;
 import org.apache.mahout.cf.taste.similarity.ItemSimilarity;
 
-public class RovkpItemBasedRecommender extends RovkpRecommender{
+import hr.vinko.rovkp.dz3.zad2.RovkpRecommender;
+
+public class HybridRecommender extends RovkpRecommender {
+
+	private final static String DEFAULT_FILE_SIMILARITY_PATH = "./jester_dataset_2/item_similarity.csv";
 	
-	private final static String DEFAULT_FILE_SIMILARITY_PATH = "../data/item_similarity.csv";
-	
-	public RovkpItemBasedRecommender(DataModel model) throws IOException, TasteException {
+	public HybridRecommender(DataModel model) throws IOException, TasteException {
 		this(model, DEFAULT_FILE_SIMILARITY_PATH);
 	}
 	
-	public RovkpItemBasedRecommender(DataModel model, String filePath) throws IOException, TasteException {
+	private HybridRecommender(DataModel model, String filePath) throws IOException, TasteException {
 		this(model, new FileItemSimilarity(new File(filePath)));
 	}
 	
-	public RovkpItemBasedRecommender(DataModel model, ItemSimilarity similarity) throws IOException, TasteException {
-		recommender = new GenericItemBasedRecommender(model, similarity);
+	public HybridRecommender(DataModel model, ItemSimilarity similarity) throws IOException, TasteException {
+		recommender = new GenericItemBasedRecommender(model, new HybridSimilarity(model, similarity));
 	}
 	
 	@Override
@@ -34,13 +36,12 @@ public class RovkpItemBasedRecommender extends RovkpRecommender{
 			@Override
 			public Recommender buildRecommender(DataModel dataModel) throws TasteException {
 				try {
-					return new RovkpItemBasedRecommender(dataModel).recommender;
+					return new HybridRecommender(dataModel).recommender;
 				} catch (IOException e) {
 					return null;
 				}
 			}
 		};
 	}
-	
 
 }
