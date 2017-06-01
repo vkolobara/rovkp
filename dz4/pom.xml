@@ -6,5 +6,6 @@
   <packaging>pom</packaging>
   <modules>
   	<module>dz4-zad1</module>
+  	<module>dz4-zad2</module>
   </modules>
 </project>
