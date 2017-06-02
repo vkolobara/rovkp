@@ -21,7 +21,7 @@ public class Main {
 
 		try (Writer writer = new BufferedWriter(new FileWriter(DEF_OUT))) {
 
-			allLines.filter(line -> SensorscopeReading.isParseable(line)).map(line -> new SensorscopeReading(line))
+			allLines.filter(line -> SensorscopeReading.isParseable(line.split("\\s+"))).map(line -> new SensorscopeReading(line))
 					.sorted().forEach(reading -> {
 						try {
 							writer.write(reading.toString() + "\n");

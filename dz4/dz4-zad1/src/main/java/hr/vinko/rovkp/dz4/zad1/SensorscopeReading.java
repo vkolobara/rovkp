@@ -1,5 +1,7 @@
 package hr.vinko.rovkp.dz4.zad1;
 
+import java.util.Arrays;
+
 public class SensorscopeReading implements Comparable<SensorscopeReading> {
 
 	private long stationID;
@@ -59,7 +61,7 @@ public class SensorscopeReading implements Comparable<SensorscopeReading> {
 
 	}
 	
-	public static boolean isParseable(String line) {
+	public static boolean isParseable(String[] line) {
 		try {
 			new SensorscopeReading(line);
 		} catch (IllegalArgumentException e) {
