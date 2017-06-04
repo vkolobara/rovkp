@@ -1,6 +1,10 @@
 package hr.vinko.rovkp.dz4.zad2;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.Serializable;
+import java.io.Writer;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -19,7 +23,7 @@ public class Main implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private final static String DEFAULT_FILE_IN = "data/StateNames.csv";
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		SparkConf conf = new SparkConf().setAppName("ROVKP DZ4_ZAD2").setMaster("local[2]").set("spark.executor.memory",
 				"4g");
 
@@ -34,8 +38,31 @@ public class Main implements Serializable {
 			System.out.println("Most popular male names: " + mostPopularMNames(babyRDD));
 			System.out.println("State in which most children are born in 1946: " + mostChildren1946State(babyRDD));
 			List<Tuple2<Integer, Long>> females = bornFemalesMovement(babyRDD);
+			
+			try (Writer writer = new BufferedWriter(new FileWriter("femalesByYears.csv"))) {
+				females.forEach(record -> {
+					try {
+						writer.write(record._1 + "," + record._2 + "\n");
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				});
+			}
+			
 			System.out.println("Born females over years: " + females);
-			System.out.println("Maries over years percentage: " + maryPercentageOverYears(babyRDD, females));
+			SortedSet<Tuple2<Integer, Double>> mary = maryPercentageOverYears(babyRDD, females);
+			
+			try (Writer writer = new BufferedWriter(new FileWriter("maryByYears.csv"))) {
+				mary.forEach(record -> {
+					try {
+						writer.write(record._1 + "," + record._2 + "\n");
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				});
+			}
+			
+			System.out.println("Maries over years percentage: " + mary);
 			System.out.println("Total children born: " + totalChildren(babyRDD));
 			System.out.println("Unique names: " + uniqueNames(babyRDD));
 		}
