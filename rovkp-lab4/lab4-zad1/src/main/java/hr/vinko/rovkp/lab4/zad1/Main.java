@@ -35,7 +35,7 @@ public class Main {
 
 	private static Stream<String> createStreamFromPaths(Stream<Path> paths) {
 		return paths.map(path -> {
-			if (path.getFileName().toString().startsWith("pollution")) {
+			if (path.getFileName().toString().startsWith("pollutionData1")) {
 				try {
 					return Files.lines(path);
 				} catch (IOException e) {
