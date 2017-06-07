@@ -1,9 +1,5 @@
 package hr.vinko.rovkp.lab4.zad2;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -68,13 +64,12 @@ public class Main {
 	private static int mostMaleOver50DeathsDay(JavaRDD<USDeathRecord> deathRDD) {
 		return deathRDD.filter(record -> "M".equals(record.getGender())).cache().filter(record -> record.getAge() > 50)
 				.mapToPair(record -> new Tuple2<>(record.getDayOfWeekOfDeath(), 1)).reduceByKey((k1, k2) -> k1 + k2)
-				.mapToPair(Tuple2::swap).sortByKey().first()._2;
+				.mapToPair(Tuple2::swap).sortByKey(false).first()._2;
 	}
 
 	/*
 	 * Koliko osoba je bilo podvrgnuto obdukciji nakon smrti?
 	 */
-
 	private static long autopsyAfterDeath(JavaRDD<USDeathRecord> deathRDD) {
 		return deathRDD.filter(record -> "Y".equals(record.getAutopsy())).count();
 	}
