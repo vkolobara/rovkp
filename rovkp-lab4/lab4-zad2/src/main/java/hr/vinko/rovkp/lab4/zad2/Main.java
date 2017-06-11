@@ -1,5 +1,9 @@
 package hr.vinko.rovkp.lab4.zad2;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -14,7 +18,7 @@ public class Main {
 
 	private final static String DEFAULT_FILE_IN = "../data/DeathRecords.csv";
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		SparkConf conf = new SparkConf().setAppName("ROVKP LAB4_ZAD2").setMaster("local[2]")
 				.set("spark.executor.memory", "4g");
 
@@ -38,8 +42,29 @@ public class Main {
 			List<Tuple2<Integer, Long>> deadMales = deadMalesBetween45_65ByMonths(deathRDD);
 			System.out.println(deadMales);
 
+			try (Writer writer = new BufferedWriter(new FileWriter("deadMalesByYears.csv"))) {
+				deadMales.forEach(record -> {
+					try {
+						writer.write(record._1 + "," + record._2 + "\n");
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				});
+			}
+			
 			System.out.println("Married dead males between 45 and 60 percentage movement: ");
-			System.out.println(deadMalesBetween45_65ByMonthsMarriedPercentage(deathRDD, deadMales));
+			SortedSet<Tuple2<Integer, Double>> marriedDeadMales = deadMalesBetween45_65ByMonthsMarriedPercentage(deathRDD, deadMales);
+			System.out.println(marriedDeadMales);
+			
+			try (Writer writer = new BufferedWriter(new FileWriter("marriedDeadMalesByYears.csv"))) {
+				marriedDeadMales.forEach(record -> {
+					try {
+						writer.write(record._1 + "," + record._2 + "\n");
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				});
+			}
 			
 			System.out.println("Died in accidents");
 			System.out.println(diedInAccidents(deathRDD));
